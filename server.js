@@ -1,6 +1,7 @@
 const express = require('express');
 const Mongoose = require('mongoose');
 const BodyParser = require('body-parser');
+var cors = require('cors')
 const uri = "mongodb+srv://root:123@cluster0-vtyiw.mongodb.net/test?retryWrites=true&w=majority";
 
 Mongoose.connect(uri, {useNewUrlParser: true}, function(error){
@@ -14,6 +15,15 @@ Mongoose.connect(uri, {useNewUrlParser: true}, function(error){
 const app = express();
 app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
+app.use(cors());
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header(
+      'Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, Accept',
+    );
+    next();
+  });
 
 const port = 3001;
 
