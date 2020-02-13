@@ -57,8 +57,47 @@ app.post('/event', async (req, res) => {
                 }
             }
         );
+    } catch (error) {
+        console.log(`Error: ${error}`);
+    }
+})
 
-        res.send(result);
+app.get('/event', async (req, res) => {
+    try {
+        Event.find(
+            {},
+            (error, data) => {
+                if (error) {
+                    console.log('Error obteniendo los eventos');
+                    console.log(error);
+                } else {
+                    console.log('Eventos encontrados');
+                    console.log(data);
+                    res.send(data);
+                }
+            }
+        );
+    } catch (error) {
+        console.log(`Error: ${error}`);
+    }
+})
+
+app.get('/event/:id', async (req, res) => {
+    try {
+        var id = req.params.id;
+        Event.findById(
+            {_id: id},
+            (error, data) => {
+                if (error) {
+                    console.log('Error obteniendo los eventos');
+                    console.log(error);
+                } else {
+                    console.log('Eventos encontrados');
+                    console.log(data);
+                    res.send(data);
+                }
+            }
+        );
     } catch (error) {
         console.log(`Error: ${error}`);
     }
